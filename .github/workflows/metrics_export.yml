@@ -1,0 +1,16 @@
+name: Export AI & DORA Metrics
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Collect DORA
+        run: python scripts/collect_dora.py
+      - name: Collect Copilot
+        run: python scripts/collect_copilot.py
+      - name: Push to Data Lake
+        run: |
+          curl -X POST "$DATA_LAKE/api/metrics" -H "Auth: $TOKEN" -d @metrics.json
