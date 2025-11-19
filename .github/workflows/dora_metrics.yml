@@ -1,0 +1,16 @@
+name: DORA Metrics Collector
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+jobs:
+  collect-dora:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Collect DORA Metrics
+        run: python scripts/collect_dora.py
+      - name: Export Metrics
+        run: python scripts/metrics_export.py
