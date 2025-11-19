@@ -1,0 +1,17 @@
+name: AI Policy Acknowledgement
+
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review]
+
+jobs:
+  policy-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PR for Policy Acknowledgement
+        run: |
+          body=$(gh pr view ${{ github.event.pull_request.number }} --json body -q .body)
+          echo "$body" | grep -qi "Read & Understood" || {
+            echo "::error ::PR must include 'Read & Understood' to AI policy."
+            exit 1
+          }
