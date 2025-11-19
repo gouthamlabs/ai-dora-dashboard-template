@@ -1,0 +1,18 @@
+name: AI Red-Team Scan
+on:
+  workflow_dispatch:
+    inputs:
+      context_doc:
+        description: "Link to risk doc"
+        required: true
+jobs:
+  redteam:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sensitive Pattern Scan
+        run: |
+          grep -R -n -E "(PII|secret|client_data)" || true
+      - name: Prompt Risk Lint
+        run: |
+          python scripts/prompt_lint.py prompts/
