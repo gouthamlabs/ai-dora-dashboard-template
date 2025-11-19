@@ -1,0 +1,20 @@
+name: "AI Use Case Proposal"
+description: "Propose a value-tracked AI pilot"
+title: "[AI Pilot] <Name>"
+body:
+  - type: input
+    id: outcome
+    attributes: { label: "Business Outcome (OKR)", placeholder: "e.g., -20% cycle time" }
+  - type: textarea
+    id: data
+    attributes: { label: "Data dependencies & readiness", placeholder: "sources, quality, access" }
+  - type: textarea
+    id: metrics
+    attributes: { label: "Measurement Plan", placeholder: "baseline, KPI, cadence" }
+  - type: checkboxes
+    id: policy
+    attributes:
+      label: "Policy & RAI"
+      options:
+        - label: "Complies with AI policy & guardrails"
+          required: true
